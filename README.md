@@ -1,19 +1,21 @@
 # Contao Swiper Extension
-Diese Extension erweitert den Standard-Contao-Swiper um drei neue Felder:
-- Steuerschaltflaechen an/aus
-- Punkte-Navigation an/aus
-- Custom-Optionen als JSON fuer die Swiper-Instanz
+This extension enhances the default Contao Swiper with three additional fields:
+- Toggle navigation buttons
+- Toggle pagination bullets
+- Custom JSON options for the Swiper instance
 
-Dies erspart den Schritt, mehrere Swiper-Templates anzulegen.
+This avoids the need to create multiple Swiper templates.
 
-Orientierung lag stark auf der Extension von fritzmg (https://github.com/fritzmg) "contao-swiper" (https://github.com/fritzmg/contao-swiper).
+The implementation was strongly inspired by fritzmg's extension (https://github.com/fritzmg) "contao-swiper" (https://github.com/fritzmg/contao-swiper).
 
-## Custom-Optionen
+## Custom Options
 
-Das Feld `Eigene Optionen` erwartet eine gültige JSON-Konfiguration für die Swiper-Instanz.
-Der Inhalt wird direkt in die initialen Swiper-Optionen gemerged.
+The `sliderResponsive` field expects a valid JSON configuration for Swiper.
+Its content is merged directly into the initial Swiper options and can therefore override the other fields such as navigation or pagination.
 
-### Beispielkonfiguration "Eigene Optionen"
+This means the field is no longer limited to breakpoints, but can contain any Swiper parameter, for example `loop`, `spaceBetween`, `slidesPerView`, `navigation`, `pagination`, or `breakpoints`.
+
+### Example configuration
 ```json
 {
   "loop": true,
