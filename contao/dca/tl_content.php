@@ -17,7 +17,7 @@ use Contao\CoreBundle\DataContainer\PaletteManipulator;
 PaletteManipulator::create()
     ->addField('sliderNavigation', 'sliderContinuous')
     ->addField('sliderPagination', 'sliderNavigation')
-    ->addField('sliderResponsive', 'sliderPagination')
+    ->addField('sliderCustomOptions', 'sliderPagination')
     ->applyToPalette('swiper', 'tl_content')
 ;
 
@@ -35,7 +35,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['sliderPagination'] =
     'sql'                     => ['type' => 'boolean', 'default' => false]
 ];
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['sliderResponsive'] =
+$GLOBALS['TL_DCA']['tl_content']['fields']['sliderCustomOptions'] =
 [
     'inputType'               => 'textarea',
     'eval'                    => ['tl_class'=>'clr', 'rte' => 'ace|json'],

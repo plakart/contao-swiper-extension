@@ -22,7 +22,7 @@ $GLOBALS['TL_LANG']['tl_content']['sliderNavigation'] = [
     'Zeigt Vor- und Zurück-Schaltflächen an.'
 ];
 
-$GLOBALS['TL_LANG']['tl_content']['sliderResponsive'] = [
-    'Responsive',
-    'Responsive Angaben für die Swiper Instanz als JSON.'
+$GLOBALS['TL_LANG']['tl_content']['sliderCustomOptions'] = [
+    'Eigene Optionen',
+    'Eigene Optionen für die Swiper Instanz als JSON.'
 ];

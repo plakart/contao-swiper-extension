@@ -22,7 +22,7 @@ $GLOBALS['TL_LANG']['tl_content']['sliderNavigation'] = [
     'ZDisplays forward and backward buttons.'
 ];
 
-$GLOBALS['TL_LANG']['tl_content']['sliderResponsive'] = [
-    'Responsive',
-    'Responsive information for the Swiper instance as JSON.'
+$GLOBALS['TL_LANG']['tl_content']['sliderCustomOptions'] = [
+    'Custom options',
+    'Custom options for the Swiper instance as JSON.'
 ];

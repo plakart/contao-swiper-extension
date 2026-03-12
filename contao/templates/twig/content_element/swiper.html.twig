@@ -17,10 +17,8 @@ Try typing "block" or "use" to get autocompletion for available options.
     } : false
 }) %}
 
-{% if data.sliderResponsive %}
-    {% set slider_settings = slider_settings|merge({
-        breakpoints: data.sliderResponsive|deserialize
-    }) %}
+{% if data.sliderCustomOptions %}
+    {% set slider_settings = slider_settings|merge(data.sliderCustomOptions|deserialize) %}
 {% endif %}
 
 

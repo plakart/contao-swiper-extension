@@ -17,9 +17,9 @@ namespace Plakart\ContaoSwiperExtensionBundle\EventListener\DataContainer;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\DataContainer;
 use Contao\StringUtil;
-class SwiperSliderResponsiveCallback
+class SwiperSliderCustomOptionsCallback
 {
-    #[AsCallback(table: 'tl_content', target: 'fields.sliderResponsive.save')]
+    #[AsCallback(table: 'tl_content', target: 'fields.sliderCustomOptions.save')]
     public function onSave($value, DataContainer $dc)
     {
         $value = $this->normalizeJsonString($value);
@@ -37,7 +37,7 @@ class SwiperSliderResponsiveCallback
         return serialize($decoded);
     }
 
-    #[AsCallback(table: 'tl_content', target: 'fields.sliderResponsive.load')]
+    #[AsCallback(table: 'tl_content', target: 'fields.sliderCustomOptions.load')]
     public function onLoad($value, DataContainer $dc)
     {
         $decoded = $this->decodeValue($value);
