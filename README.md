@@ -10,12 +10,10 @@ The implementation was strongly inspired by fritzmg's extension (https://github.
 
 ## Custom Options
 
-The `sliderResponsive` field expects a valid JSON configuration for Swiper.
+The `Custom options` field expects a valid JSON configuration for Swiper.
 Its content is merged directly into the initial Swiper options and can therefore override the other fields such as navigation or pagination.
 
-This means the field is no longer limited to breakpoints, but can contain any Swiper parameter, for example `loop`, `spaceBetween`, `slidesPerView`, `navigation`, `pagination`, or `breakpoints`.
-
-### Example configuration
+### Example configuration for the field `Custom options`
 ```json
 {
   "loop": true,
