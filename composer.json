@@ -2,6 +2,7 @@
   "name": "plakart/contao-swiper-extension",
   "type": "contao-bundle",
   "description": "Erweitert den Standard-Contao Swiper um weitere Optionen",
+  "license": "LGPL-3.0-or-later",
   "authors": [
     {
       "name": "Agentur plakart",
