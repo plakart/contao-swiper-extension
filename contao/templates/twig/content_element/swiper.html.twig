@@ -1,0 +1,29 @@
+{% extends "@Contao/content_element/swiper.html.twig" %}
+
+{#
+Adjust how any blocks of parent or used component templates are rendered.
+Try typing "block" or "use" to get autocompletion for available options.
+#}
+
+
+{% set slider_settings = slider_settings|merge({
+    pagination: data.sliderPagination ? {
+        el: '.swiper-pagination',
+        clickable: true
+    } : false,
+    navigation: data.sliderNavigation ? {
+        prevEl: '.swiper-button-prev',
+        nextEl: '.swiper-button-next'
+    } : false
+}) %}
+
+{% if data.sliderResponsive %}
+    {% set slider_settings = slider_settings|merge({
+        breakpoints: data.sliderResponsive|deserialize
+    }) %}
+{% endif %}
+
+
+{% block init_options %}
+    {# Put custom options here #}
+{% endblock %}
