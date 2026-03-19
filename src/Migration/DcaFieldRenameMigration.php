@@ -53,6 +53,10 @@ class DcaFieldRenameMigration extends AbstractMigration
         }
 
         foreach ($this->getExistingFieldRenames() as $oldField => $newField) {
+            if (!$this->hasColumn($newField)) {
+                return true;
+            }
+
             if (false !== $this->connection->fetchOne($this->buildShouldRunQuery($oldField, $newField))) {
                 return true;
             }
@@ -64,6 +68,7 @@ class DcaFieldRenameMigration extends AbstractMigration
     public function run(): MigrationResult
     {
         foreach ($this->getExistingFieldRenames() as $oldField => $newField) {
+            $this->createNewColumn($oldField, $newField);
             $this->connection->executeStatement($this->buildMigrationQuery($oldField, $newField));
         }
 
@@ -83,9 +88,38 @@ class DcaFieldRenameMigration extends AbstractMigration
 
         return array_filter(
             self::FIELD_RENAMES,
-            static fn (string $newField, string $oldField): bool => isset($columns[strtolower($oldField)], $columns[strtolower($newField)]),
+            static fn (string $newField, string $oldField): bool => isset($columns[strtolower($oldField)]),
             ARRAY_FILTER_USE_BOTH,
         );
+    }
+
+    private function hasColumn(string $fieldName): bool
+    {
+        foreach ($this->connection->createSchemaManager()->introspectTableColumnsByUnquotedName(self::TABLE) as $column) {
+            if (strtolower($column->getName()) === strtolower($fieldName)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function createNewColumn(string $oldField, string $newField): void
+    {
+        if ($this->hasColumn($newField)) {
+            return;
+        }
+
+        $table = $this->quoteIdentifier(self::TABLE);
+        $new = $this->quoteIdentifier($newField);
+
+        if (\in_array($oldField, self::BOOLEAN_FIELDS, true)) {
+            $this->connection->executeStatement("ALTER TABLE $table ADD $new TINYINT(1) DEFAULT 0 NOT NULL");
+
+            return;
+        }
+
+        $this->connection->executeStatement("ALTER TABLE $table ADD $new LONGBLOB DEFAULT NULL");
     }
 
     private function buildShouldRunQuery(string $oldField, string $newField): string
