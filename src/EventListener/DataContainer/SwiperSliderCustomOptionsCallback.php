@@ -19,7 +19,7 @@ use Contao\DataContainer;
 use Contao\StringUtil;
 class SwiperSliderCustomOptionsCallback
 {
-    #[AsCallback(table: 'tl_content', target: 'fields.sliderCustomOptions.save')]
+    #[AsCallback(table: 'tl_content', target: 'fields.swiperSliderCustomOptions.save')]
     public function onSave($value, DataContainer $dc)
     {
         $value = $this->normalizeJsonString($value);
@@ -37,7 +37,7 @@ class SwiperSliderCustomOptionsCallback
         return serialize($decoded);
     }
 
-    #[AsCallback(table: 'tl_content', target: 'fields.sliderCustomOptions.load')]
+    #[AsCallback(table: 'tl_content', target: 'fields.swiperSliderCustomOptions.load')]
     public function onLoad($value, DataContainer $dc)
     {
         $decoded = $this->decodeValue($value);

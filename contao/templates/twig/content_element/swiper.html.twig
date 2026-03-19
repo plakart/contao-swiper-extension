@@ -7,18 +7,18 @@ Try typing "block" or "use" to get autocompletion for available options.
 
 
 {% set slider_settings = slider_settings|merge({
-    pagination: data.sliderPagination ? {
+    pagination: data.swiperSliderPagination ? {
         el: '.swiper-pagination',
         clickable: true
     } : false,
-    navigation: data.sliderNavigation ? {
+    navigation: data.swiperSliderNavigation ? {
         prevEl: '.swiper-button-prev',
         nextEl: '.swiper-button-next'
     } : false
 }) %}
 
-{% if data.sliderCustomOptions %}
-    {% set slider_settings = slider_settings|merge(data.sliderCustomOptions|deserialize) %}
+{% if data.swiperSliderCustomOptions %}
+    {% set slider_settings = slider_settings|merge(data.swiperSliderCustomOptions|deserialize) %}
 {% endif %}
 
 

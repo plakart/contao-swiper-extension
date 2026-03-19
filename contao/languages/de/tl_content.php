@@ -12,17 +12,17 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$GLOBALS['TL_LANG']['tl_content']['sliderPagination'] = [
+$GLOBALS['TL_LANG']['tl_content']['swiperSliderPagination'] = [
     'Punkte-Navigation',
     'Zeigt eine Punkte-Navigation an.'
 ];
 
-$GLOBALS['TL_LANG']['tl_content']['sliderNavigation'] = [
+$GLOBALS['TL_LANG']['tl_content']['swiperSliderNavigation'] = [
     'Steuerschaltflächen',
     'Zeigt Vor- und Zurück-Schaltflächen an.'
 ];
 
-$GLOBALS['TL_LANG']['tl_content']['sliderCustomOptions'] = [
+$GLOBALS['TL_LANG']['tl_content']['swiperSliderCustomOptions'] = [
     'Eigene Optionen',
     'Eigene Optionen für die Swiper Instanz als JSON.'
 ];

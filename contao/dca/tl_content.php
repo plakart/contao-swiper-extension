@@ -15,27 +15,27 @@ declare(strict_types=1);
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
 PaletteManipulator::create()
-    ->addField('sliderNavigation', 'sliderContinuous')
-    ->addField('sliderPagination', 'sliderNavigation')
-    ->addField('sliderCustomOptions', 'sliderPagination')
+    ->addField('swiperSliderNavigation', 'sliderContinuous')
+    ->addField('swiperSliderPagination', 'swiperSliderNavigation')
+    ->addField('swiperSliderCustomOptions', 'swiperSliderPagination')
     ->applyToPalette('swiper', 'tl_content')
 ;
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['sliderNavigation'] =
+$GLOBALS['TL_DCA']['tl_content']['fields']['swiperSliderNavigation'] =
 [
     'inputType'               => 'checkbox',
     'eval'                    => ['tl_class'=>'w25'],
     'sql'                     => ['type' => 'boolean', 'default' => false]
 ];
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['sliderPagination'] =
+$GLOBALS['TL_DCA']['tl_content']['fields']['swiperSliderPagination'] =
 [
     'inputType'               => 'checkbox',
     'eval'                    => ['tl_class'=>'w25'],
     'sql'                     => ['type' => 'boolean', 'default' => false]
 ];
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['sliderCustomOptions'] =
+$GLOBALS['TL_DCA']['tl_content']['fields']['swiperSliderCustomOptions'] =
 [
     'inputType'               => 'textarea',
     'eval'                    => ['tl_class'=>'clr', 'rte' => 'ace|json'],

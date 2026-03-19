@@ -12,17 +12,17 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-$GLOBALS['TL_LANG']['tl_content']['sliderPagination'] = [
+$GLOBALS['TL_LANG']['tl_content']['swiperSliderPagination'] = [
     'Dot navigation',
     'Displays dot navigation.'
 ];
 
-$GLOBALS['TL_LANG']['tl_content']['sliderNavigation'] = [
+$GLOBALS['TL_LANG']['tl_content']['swiperSliderNavigation'] = [
     'Control buttons',
     'ZDisplays forward and backward buttons.'
 ];
 
-$GLOBALS['TL_LANG']['tl_content']['sliderCustomOptions'] = [
+$GLOBALS['TL_LANG']['tl_content']['swiperSliderCustomOptions'] = [
     'Custom options',
     'Custom options for the Swiper instance as JSON.'
 ];
