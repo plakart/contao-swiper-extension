@@ -82,7 +82,7 @@ class DcaFieldRenameMigration extends AbstractMigration
     {
         $columns = [];
 
-        foreach ($this->connection->createSchemaManager()->introspectTableColumnsByUnquotedName(self::TABLE) as $column) {
+        foreach ($this->getTableColumns() as $column) {
             $columns[strtolower($column->getName())] = true;
         }
 
@@ -95,13 +95,29 @@ class DcaFieldRenameMigration extends AbstractMigration
 
     private function hasColumn(string $fieldName): bool
     {
-        foreach ($this->connection->createSchemaManager()->introspectTableColumnsByUnquotedName(self::TABLE) as $column) {
+        foreach ($this->getTableColumns() as $column) {
             if (strtolower($column->getName()) === strtolower($fieldName)) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * Bridge DBAL schema-manager API differences between Contao versions.
+     *
+     * @return list<object>
+     */
+    private function getTableColumns(): array
+    {
+        $schemaManager = $this->connection->createSchemaManager();
+
+        if (method_exists($schemaManager, 'introspectTableColumnsByUnquotedName')) {
+            return $schemaManager->introspectTableColumnsByUnquotedName(self::TABLE);
+        }
+
+        return $schemaManager->listTableColumns(self::TABLE);
     }
 
     private function createNewColumn(string $oldField, string $newField): void
@@ -126,14 +142,13 @@ class DcaFieldRenameMigration extends AbstractMigration
     {
         $table = $this->quoteIdentifier(self::TABLE);
         $old = $this->quoteIdentifier($oldField);
-        $new = $this->quoteIdentifier($newField);
+        $oldHasValueCondition = $this->buildOldFieldHasValueCondition($oldField, $old);
         $newIsEmptyCondition = $this->buildNewFieldEmptyCondition($newField);
 
         return <<<SQL
             SELECT TRUE
             FROM $table
-            WHERE $old IS NOT NULL
-              AND $old != ''
+            WHERE $oldHasValueCondition
               AND $newIsEmptyCondition
             LIMIT 1
             SQL;
@@ -144,15 +159,24 @@ class DcaFieldRenameMigration extends AbstractMigration
         $table = $this->quoteIdentifier(self::TABLE);
         $old = $this->quoteIdentifier($oldField);
         $new = $this->quoteIdentifier($newField);
+        $oldHasValueCondition = $this->buildOldFieldHasValueCondition($oldField, $old);
         $newIsEmptyCondition = $this->buildNewFieldEmptyCondition($newField);
 
         return <<<SQL
             UPDATE $table
             SET $new = $old
-            WHERE $old IS NOT NULL
-              AND $old != ''
+            WHERE $oldHasValueCondition
               AND $newIsEmptyCondition
             SQL;
+    }
+
+    private function buildOldFieldHasValueCondition(string $oldField, string $quotedOldField): string
+    {
+        if (\in_array($oldField, self::BOOLEAN_FIELDS, true)) {
+            return "($quotedOldField IS NOT NULL AND $quotedOldField != '' AND $quotedOldField != '0')";
+        }
+
+        return "($quotedOldField IS NOT NULL AND $quotedOldField != '')";
     }
 
     private function buildNewFieldEmptyCondition(string $newField): string
@@ -173,6 +197,10 @@ class DcaFieldRenameMigration extends AbstractMigration
 
     private function quoteIdentifier(string $identifier): string
     {
-        return $this->connection->quoteSingleIdentifier($identifier);
+        if (method_exists($this->connection, 'quoteSingleIdentifier')) {
+            return $this->connection->quoteSingleIdentifier($identifier);
+        }
+
+        return $this->connection->quoteIdentifier($identifier);
     }
 }
