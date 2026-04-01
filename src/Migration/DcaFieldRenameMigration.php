@@ -173,7 +173,7 @@ class DcaFieldRenameMigration extends AbstractMigration
     private function buildOldFieldHasValueCondition(string $oldField, string $quotedOldField): string
     {
         if (\in_array($oldField, self::BOOLEAN_FIELDS, true)) {
-            return "($quotedOldField IS NOT NULL AND $quotedOldField != '' AND $quotedOldField != '0')";
+            return "($quotedOldField IS NOT NULL AND $quotedOldField != 0)";
         }
 
         return "($quotedOldField IS NOT NULL AND $quotedOldField != '')";
@@ -184,7 +184,7 @@ class DcaFieldRenameMigration extends AbstractMigration
         $new = $this->quoteIdentifier($newField);
 
         if (\in_array($this->getOldFieldName($newField), self::BOOLEAN_FIELDS, true)) {
-            return "($new IS NULL OR $new = '' OR $new = '0')";
+            return "($new IS NULL OR $new = 0)";
         }
 
         return "($new IS NULL OR $new = '')";
