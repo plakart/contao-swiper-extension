@@ -18,8 +18,7 @@
     }
   ],
   "require": {
-    "php": "^8.3",
-    "contao/core-bundle": ">=5.6"
+    "contao/core-bundle": ">=5.7"
   },
   "conflict": {
     "contao/manager-plugin": "<2.0 || >=3.0"
